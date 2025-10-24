@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Makayla Fajman's Resume{% endblock %}
+
+{% block content %}
+<section class="content-section">
+    <div class="container">
+        <h1>Resume</h1>
+        
+        <div class="resume-container">
+            <!-- Resume PDF Embed -->
+            <div class="resume-viewer">
+                <embed src="/static/images/Resume.pdf" type="application/pdf" width="100%" height="800px" />
+            </div>
+            
+            <!-- Download Button -->
+            <div class="resume-download">
+                <a href="/static/images/Resume.pdf" class="download-btn" download="Makayla_Fajman_Resume.pdf">
+                    📄 Download Resume PDF
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

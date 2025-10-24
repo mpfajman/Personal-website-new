@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Information{% endblock %}
+
+{% block content %}
+<section class="content-section">
+    <div class="container">
+        <h1>Contact Information</h1>
+        <p class="contact-intro">Let's connect! Feel free to reach out through any of the following channels.</p>
+        
+        <div class="contact-grid">
+            <!-- School Email -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    🎓
+                </div>
+                <h3>School Email</h3>
+                <div class="contact-details">
+                    <a href="mailto:mfajman@iu.edu" class="contact-link">
+                        mfajman@iu.edu
+                    </a>
+                </div>
+            </div>
+
+            <!-- Personal Email -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    📧
+                </div>
+                <h3>Personal Email</h3>
+                <div class="contact-details">
+                    <a href="mailto:makaylapfajman@gmail.com" class="contact-link">
+                        makaylapfajman@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            <!-- LinkedIn -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    💼
+                </div>
+                <h3>LinkedIn</h3>
+                <div class="contact-details">
+                    <a href="https://www.linkedin.com/in/makayla-fajman" target="_blank" class="contact-link">
+                        linkedin.com/in/makayla-fajman
+                    </a>
+                </div>
+            </div>
+
+            <!-- GitHub -->
+            <div class="contact-card">
+                <div class="contact-icon">
+                    💻
+                </div>
+                <h3>GitHub</h3>
+                <div class="contact-details">
+                    <a href="https://github.com/your-github-username" target="_blank" class="contact-link">
+                        github.com/your-username
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+            <h2>Contact Form</h2>
+            <form class="contact-form" id="contactForm" action="/thankyou" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            name="firstName" 
+                            required 
+                            pattern="[A-Za-z]{2,}" 
+                            title="First name must contain at least 2 letters and only alphabetic characters"
+                        >
+                        <span class="error-message" id="firstNameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input 
+                            type="text" 
+                            id="lastName" 
+                            name="lastName" 
+                            required 
+                            pattern="[A-Za-z]{2,}" 
+                            title="Last name must contain at least 2 letters and only alphabetic characters"
+                        >
+                        <span class="error-message" id="lastNameError"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailAddress">Email Address *</label>
+                    <input 
+                        type="email" 
+                        id="emailAddress" 
+                        name="emailAddress" 
+                        required 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                        title="Please enter a valid email address"
+                    >
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        minlength="8" 
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" 
+                        title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                    >
+                    <span class="error-message" id="passwordError"></span>
+                    <div class="password-requirements">
+                        <small>Password must contain:</small>
+                        <ul>
+                            <li>At least 8 characters</li>
+                            <li>One uppercase letter</li>
+                            <li>One lowercase letter</li>
+                            <li>One number</li>
+                            <li>One special character (@$!%*?&)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        required 
+                        minlength="8"
+                        title="Please confirm your password"
+                    >
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Form</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Clear previous error messages
+        clearErrors();
+        
+        let isValid = true;
+        
+        // Validate First Name
+        const firstName = document.getElementById('firstName');
+        if (!firstName.value.trim()) {
+            showError('firstNameError', 'First name is required');
+            isValid = false;
+        } else if (!/^[A-Za-z]{2,}$/.test(firstName.value.trim())) {
+            showError('firstNameError', 'First name must contain at least 2 letters and only alphabetic characters');
+            isValid = false;
+        }
+        
+        // Validate Last Name
+        const lastName = document.getElementById('lastName');
+        if (!lastName.value.trim()) {
+            showError('lastNameError', 'Last name is required');
+            isValid = false;
+        } else if (!/^[A-Za-z]{2,}$/.test(lastName.value.trim())) {
+            showError('lastNameError', 'Last name must contain at least 2 letters and only alphabetic characters');
+            isValid = false;
+        }
+        
+        // Validate Email
+        const email = document.getElementById('emailAddress');
+        const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+        if (!email.value.trim()) {
+            showError('emailError', 'Email address is required');
+            isValid = false;
+        } else if (!emailPattern.test(email.value.trim())) {
+            showError('emailError', 'Please enter a valid email address');
+            isValid = false;
+        }
+        
+        // Validate Password
+        const password = document.getElementById('password');
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!password.value) {
+            showError('passwordError', 'Password is required');
+            isValid = false;
+        } else if (password.value.length < 8) {
+            showError('passwordError', 'Password must be at least 8 characters long');
+            isValid = false;
+        } else if (!passwordPattern.test(password.value)) {
+            showError('passwordError', 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+            isValid = false;
+        }
+        
+        // Validate Confirm Password
+        const confirmPassword = document.getElementById('confirmPassword');
+        if (!confirmPassword.value) {
+            showError('confirmPasswordError', 'Please confirm your password');
+            isValid = false;
+        } else if (password.value !== confirmPassword.value) {
+            showError('confirmPasswordError', 'Passwords do not match');
+            isValid = false;
+        }
+        
+        // If all validations pass, redirect to thank you page
+        if (isValid) {
+            window.location.href = '/thankyou';
+        }
+    });
+    
+    function showError(elementId, message) {
+        document.getElementById(elementId).textContent = message;
+        document.getElementById(elementId).style.display = 'block';
+    }
+    
+    function clearErrors() {
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(error => {
+            error.textContent = '';
+            error.style.display = 'none';
+        });
+    }
+    
+    // Real-time password confirmation validation
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const errorElement = document.getElementById('confirmPasswordError');
+        
+        if (confirmPassword && password !== confirmPassword) {
+            showError('confirmPasswordError', 'Passwords do not match');
+        } else {
+            errorElement.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

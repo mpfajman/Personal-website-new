@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Makayla's Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="nav-logo">Makayla's Portfolio</h1>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link {% if request.endpoint == 'home' %}active{% endif %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/resume" class="nav-link {% if request.endpoint == 'resume' %}active{% endif %}">Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/projects" class="nav-link {% if request.endpoint == 'projects' %}active{% endif %}">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

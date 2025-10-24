@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<section class="projects-hero">
+    <div class="container">
+        <h1>Past Projects</h1>
+        <p class="projects-intro">Projects I've worked on that showcase my skills and experience.</p>
+        <div class="add-project-link">
+            <a href="{{ url_for('add_project') }}" class="btn btn-primary">Add New Project</a>
+        </div>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="container">
+        {% if projects %}
+        <div class="projects-table-container">
+            <table class="projects-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Technologies</th>
+                        <th>Project URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td class="project-image-cell">
+                            <img src="/static/images/{{ project.image_filename }}" 
+                                 alt="{{ project.title }} Screenshot" 
+                                 class="project-table-img">
+                        </td>
+                        <td class="project-title-cell">
+                            <strong>{{ project.title }}</strong>
+                        </td>
+                        <td class="project-description-cell">
+                            {{ project.description }}
+                        </td>
+                        <td class="project-technologies-cell">
+                            {{ project.technologies or 'N/A' }}
+                        </td>
+                        <td class="project-url-cell">
+                            {% if project.project_url %}
+                                <a href="{{ project.project_url }}" target="_blank" class="project-link">
+                                    View Project
+                                </a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-projects">
+            <p>No projects found. <a href="{{ url_for('add_project') }}">Add your first project!</a></p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

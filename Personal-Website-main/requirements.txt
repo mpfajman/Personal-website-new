@@ -1,0 +1,29 @@
+# Flask Web Framework and Core Dependencies to run my website
+Flask==2.3.3
+Werkzeug==2.3.7
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+itsdangerous==2.1.2
+click==8.1.7
+blinker==1.6.2
+
+# Additional Dependencies for Future Compatibility
+# These ensure the website works across different Python versions and systems
+setuptools>=65.0.0
+wheel>=0.38.0
+
+# Development and Testing Dependencies (optional but recommended)
+# Uncomment these if you want to add testing or development tools
+# pytest==7.4.0
+# pytest-flask==1.2.0
+# flake8==6.0.0
+
+# Production Server Dependencies (for deployment)
+# Uncomment these when deploying to production
+# gunicorn==21.2.0
+# waitress==2.1.2
+
+# Security and Performance
+# Uncomment these for enhanced security and performance
+# cryptography>=41.0.0
+# python-dotenv>=1.0.0
