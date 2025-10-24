@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Project{% endblock %}
+
+{% block content %}
+<section class="content-section">
+    <div class="container">
+        <h1>Add New Project</h1>
+        <p class="form-intro">Fill out the form below to add a new project to your portfolio.</p>
+        
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="form-container">
+            <form class="project-form" method="POST" action="{{ url_for('add_project') }}">
+                <div class="form-group">
+                    <label for="title">Project Title *</label>
+                    <input 
+                        type="text" 
+                        id="title" 
+                        name="title" 
+                        required 
+                        placeholder="Enter project title"
+                        value="{{ request.form.title if request.form.title }}"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Project Description *</label>
+                    <textarea 
+                        id="description" 
+                        name="description" 
+                        required 
+                        rows="5"
+                        placeholder="Describe your project, what it does, and what you learned"
+                    >{{ request.form.description if request.form.description }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="image_filename">Image Filename *</label>
+                    <input 
+                        type="text" 
+                        id="image_filename" 
+                        name="image_filename" 
+                        required 
+                        placeholder="e.g., project1image.jpeg"
+                        value="{{ request.form.image_filename if request.form.image_filename }}"
+                    >
+                    <small class="form-help">Enter the filename of the image you've placed in the static/images folder</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="technologies">Technologies Used</label>
+                    <input 
+                        type="text" 
+                        id="technologies" 
+                        name="technologies" 
+                        placeholder="e.g., Python, Flask, SQLite, HTML, CSS"
+                        value="{{ request.form.technologies if request.form.technologies }}"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="project_url">Project URL</label>
+                    <input 
+                        type="url" 
+                        id="project_url" 
+                        name="project_url" 
+                        placeholder="https://example.com/your-project"
+                        value="{{ request.form.project_url if request.form.project_url }}"
+                    >
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Project</button>
+                    <a href="{{ url_for('projects') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="form-instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Add your project image to the <code>static/images/</code> folder</li>
+                <li>Enter the exact filename (including extension) in the Image Filename field</li>
+                <li>Fill in the project details</li>
+                <li>Click "Add Project" to save</li>
+            </ol>
+        </div>
+    </div>
+</section>
+{% endblock %}
